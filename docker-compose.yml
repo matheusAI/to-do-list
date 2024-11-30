@@ -1,0 +1,17 @@
+version: 'latest'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: todo-list-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: to-do-list
+
+volumes:
+  mongo-data:
