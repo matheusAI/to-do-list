@@ -4,8 +4,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
+    "build": "tsc", 
+    "start": "node dist/server.js", 
+    "test": "jest", 
+    "test:debug": "node --inspect-brk -r ts-node/register src/test/index.ts",
+    "lint": "eslint . --ext .ts,.js",
+    "predeploy": "npm run build", 
+    "deploy": "vercel --prod"
   },
   "keywords": [],
   "author": "matheusAI",
