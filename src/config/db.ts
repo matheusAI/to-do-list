@@ -3,11 +3,16 @@ import mongoose from 'mongoose';
 const connectDB = async () => {
   try {
     const MONGO_URI = process.env.MONGO_URI;
+
+    if (!MONGO_URI) {
+      throw new Error('❌ MONGO_URI não está definido no arquivo de ambiente.');
+    }
+
     await mongoose.connect(MONGO_URI);
     console.log('✅ Conectado ao MongoDB!');
   } catch (error) {
     console.error('❌ Erro ao conectar ao MongoDB:', error);
-    process.exit(1);
+    process.exit(1); // Finaliza o processo com erro
   }
 };
 

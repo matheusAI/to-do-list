@@ -1,8 +1,9 @@
-version: 'latest'
+version: '1.0'
 
 services:
   mongodb:
-    image: mongo:6.0
+    image: mongo:4.4
+    restart: always
     container_name: todo-list-mongodb
     ports:
       - "27017:27017"
@@ -11,7 +12,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: to-do-list
 
 volumes:
   mongo-data:

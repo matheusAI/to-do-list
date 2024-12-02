@@ -1,14 +1,16 @@
 import { Redis } from '@upstash/redis';
 
+const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
+const redis_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN
+
 const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,  // URL do Redis
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,  // Token do Redis
+  url: REDIS_URL,  // URL do Redis
+  token: redis_TOKEN,  // Token do Redis
 });
 
 // Função para verificar a conexão ao Redis
 (async () => {
   try {
-    // Testando o acesso ao Redis
     const response = await redis.ping();
     if (response === "PONG") {
       console.log("✅ Redis conectado com sucesso!");
