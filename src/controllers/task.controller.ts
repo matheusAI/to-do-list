@@ -1,12 +1,12 @@
-import { Request, Response } from 'express';
-import Task from '../models/task.model';
+import { Request, Response } from "express";
+import Task from "../models/task.model";
 
 export const createTask = async (req: Request, res: Response) => {
   try {
     const task = await Task.create(req.body);
     res.status(201).json(task);
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao criar tarefa.', error });
+    res.status(500).json({ mensagem: "Erro ao criar tarefa.", error });
   }
 };
 
@@ -15,7 +15,7 @@ export const getTasks = async (req: Request, res: Response) => {
     const tasks = await Task.find();
     res.json(tasks);
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao buscar tarefas.', error });
+    res.status(500).json({ mensagem: "Erro ao buscar tarefas.", error });
   }
 };
 
@@ -25,10 +25,11 @@ export const updateTaskStatus = async (req: Request, res: Response) => {
 
   try {
     const task = await Task.findByIdAndUpdate(id, { status }, { new: true });
-    if (!task) return res.status(404).json({ message: 'Tarefa não encontrada.' });
+    if (!task)
+      return res.status(404).json({ mensagem: "Tarefa não encontrada." });
     res.json(task);
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao atualizar tarefa.', error });
+    res.status(500).json({ mensagem: "Erro ao atualizar tarefa.", error });
   }
 };
 
@@ -37,9 +38,10 @@ export const deleteTask = async (req: Request, res: Response) => {
 
   try {
     const task = await Task.findByIdAndDelete(id);
-    if (!task) return res.status(404).json({ message: 'Tarefa não encontrada.' });
+    if (!task)
+      return res.status(404).json({ mensagem: "Tarefa não encontrada." });
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao deletar tarefa.', error });
+    res.status(500).json({ mensagem: "Erro ao deletar tarefa.", error });
   }
 };
