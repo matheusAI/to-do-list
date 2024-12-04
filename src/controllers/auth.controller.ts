@@ -3,12 +3,14 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model";
 import redisClient from "../config/redis";
-import dotenv from "dotenv";
 
-dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
-const JWT_SECRET = process.env.JWT_SECRET || "defaultSecret";
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET não está definido nas variáveis de ambiente.");
+}
+
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 
 export const registerUser = async (
   req: Request,
@@ -73,7 +75,7 @@ export const loginUser = async (
     });
 
     await redisClient.set(token, JSON.stringify({ id: user._id }), {
-      ex: 3600,
+      ex: 86400,
     });
 
     return res.status(200).json({ mensagem: "Login bem-sucedido.", token });
