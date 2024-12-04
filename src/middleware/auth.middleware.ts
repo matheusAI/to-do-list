@@ -1,6 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import redisClient from "../config/redis";
+
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: string;
+      user?: { id: string; email: string };
+    }
+  }
+}
 
 export const authMiddleware = async (
   req: Request,
@@ -24,7 +33,9 @@ export const authMiddleware = async (
       id: string;
       email: string;
     };
-    (req as any).user = { id: payload.id, email: payload.email };
+
+    req.userId = payload.id;
+    req.user = { id: payload.id, email: payload.email };
 
     next();
   } catch (error) {
