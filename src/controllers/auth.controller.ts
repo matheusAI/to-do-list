@@ -3,6 +3,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model";
 import redisClient from "../config/redis";
+import dotenv from "dotenv";
+
+dotenv.config()
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
